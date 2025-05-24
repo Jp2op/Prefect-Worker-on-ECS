@@ -64,6 +64,7 @@ Alternatively, use environment variables or CLI `-var` flags.
 
 ```bash
 terraform init
+terraform plan
 terraform apply
 ```
 
