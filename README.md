@@ -27,7 +27,7 @@ This was created as part of a DevOps internship assignment.
 ├── secrets.tf              # Secrets Manager integration
 ├── terraform.tfvars        # Optional: values for your variables
 ├── README.md               # This file
-├── report.md               # Detailed report (see separate deliverable)
+├── report.pdf               # Detailed report (see separate deliverable)
 ```
 
 ---
