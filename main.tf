@@ -108,8 +108,6 @@ resource "aws_iam_role_policy_attachment" "secrets_attach" {
   policy_arn = aws_iam_policy.secrets_manager_access.arn
 }
 
-# The aws_secretsmanager_secret and aws_secretsmanager_secret_version
-# resources have been removed from this file. They now live in secrets.tf.
 
 # CloudWatch Log Group
 resource "aws_cloudwatch_log_group" "ecs_logs" {
@@ -126,12 +124,11 @@ resource "aws_ecs_task_definition" "prefect_worker" {
   memory                   = "1024" # Consider increasing to 1024 or 2048 for testing
 
   execution_role_arn = aws_iam_role.ecs_task_execution.arn
-  # task_role_arn = aws_iam_role.ecs_task_execution.arn # Optional: If your app needs AWS permissions beyond secrets/logs
 
   container_definitions = jsonencode([
     {
       name      = "prefect-worker",
-      image     = "prefecthq/prefect:2-latest", # Or try a specific version like "prefecthq/prefect:2.19.2"
+      image     = "prefecthq/prefect:2-latest",
       essential = true,
       command   = ["prefect", "worker", "start", "--pool", var.work_pool_name],
       # TEMPORARY: Override command to print environment variables and then sleep
@@ -162,7 +159,7 @@ resource "aws_ecs_task_definition" "prefect_worker" {
         # Add Prefect debug logging
         {
           name  = "PREFECT_LOGGING_LEVEL",
-          value = "DEBUG" # This might give more verbose output from Prefect
+          value = "DEBUG" # This give more verbose output from Prefect
         },
         {
           name  = "PREFECT_AGENT_QUERY_INTERVAL", # Example of another Prefect var
